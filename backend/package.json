@@ -1,9 +1,17 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file=.env --import tsx --watch src/server.ts",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "check": "tsc --watch --noEmit",
+    "clean": "rm -rf node_modules .turbo node_modules/.cache dist .tsbuildinfo",
+    "rebuild": "npm run clean && npm install && npx tsc --force",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
