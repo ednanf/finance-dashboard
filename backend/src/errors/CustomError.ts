@@ -2,7 +2,7 @@
 // It allows for creating custom errors types with a specific name and stack trace.
 
 class CustomError extends Error {
-  statusCode: number = 500; // Default to Internal Server Error
+  public readonly statusCode: number;
 
   constructor(message: string, statusCode: number = 500) {
     super(message);

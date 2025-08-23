@@ -8,8 +8,8 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "lint:fix": "eslint 'src/**/*.{ts,tsx}' --fix",
     "check": "tsc --watch --noEmit",
-    "clean": "rm -rf node_modules .turbo node_modules/.cache dist .tsbuildinfo",
-    "rebuild": "npm run clean && npm install && npx tsc --force",
+    "clean": "rm -rf dist .tsbuildinfo",
+    "rebuild": "npm run clean && npm install && npm run build",
     "build": "tsc",
     "start": "node dist/server.js"
   },
