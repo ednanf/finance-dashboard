@@ -1,0 +1,26 @@
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
+  },
+  //...
+  env: {
+    node: true,
+    es2021: true,
+  },
+  extends: ['airbnb-base', 'airbnb-typescript/base', 'prettier'],
+  plugins: ['@typescript-eslint'],
+  rules: {
+    // your overrides here
+    'no-console': 'off',
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
+  },
+};
