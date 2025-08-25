@@ -1,5 +1,10 @@
 import mongoose, { Schema, model, HydratedDocument } from 'mongoose';
 import validator from 'validator';
+import hashPassword from '../utils/hashPassword.js';
+import createJWT from '../utils/createJWT.js';
+import comparePasswords from '../utils/comparePasswords.js';
+
+// TODO: add encryption and JWT methods
 
 // User interface
 export interface IUser {
@@ -38,6 +43,24 @@ const userSchema = new Schema<IUserDocument>(
   },
   { timestamps: true },
 );
+
+// Hash password before saving - only if the password field has been modified
+userSchema.pre('save', async function hashPasswordBeforeSave() {
+  if (this.isModified('password')) {
+    this.password = await hashPassword(this.password);
+  }
+});
+
+// Create JWT for user - adds userId to the payload for reference
+userSchema.methods.createJWT = async function createUserJWT(payload: Record<string, unknown> = {}) {
+  // eslint-disable-next-line no-underscore-dangle
+  return createJWT({ userId: this._id, ...payload });
+};
+
+// Compare provided password with stored hashed password
+userSchema.methods.comparePassword = async function compareUserPassword(candidatePassword: string) {
+  return comparePasswords(candidatePassword, this.password);
+};
 
 /**
  * Defense against "Cannot overwrite model" errors in development.
