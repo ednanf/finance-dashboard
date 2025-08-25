@@ -4,8 +4,6 @@ import hashPassword from '../utils/hashPassword.js';
 import createJWT from '../utils/createJWT.js';
 import comparePasswords from '../utils/comparePasswords.js';
 
-// TODO: add encryption and JWT methods
-
 // User interface
 export interface IUser {
   email: string;
